@@ -1,0 +1,29 @@
+class Solution{
+
+  public static int kthLargest(int arr[],int k){
+  
+  int sum[]=new int[arr.length+1];
+  sum[1]=arr[1];
+      for(int i=1;i<arr.length;i++){
+          sum[i]= sum[i-1]+arr[i];
+      }
+      PriorityQueue<Integer> pq=new PriorityQueue<Integer>();
+      for(int i=1;i<=arr.length;i++){
+        for(int j=i;j<=arr.length;j++){
+          int x=sum[j]-sum[i-1];
+          if(pq.size()<k){
+            pq.add(x);
+          }
+          else{
+            if(pq.peek()<x){
+              pq.poll();
+              pq.add(x);
+            }
+          }
+        }
+      }
+      return pq.poll();
+
+  }
+
+}
