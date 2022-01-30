@@ -1,0 +1,10 @@
+class FingerGame{
+  
+  int finger(int n){
+    int r=n%8;
+    if(n==0)return 2;
+    if(n<5)return n;
+    return 10-r;
+  }
+
+}
