@@ -1,0 +1,39 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i;
+        for(i=nums.length-1;i>0;i--){
+            if(nums[i]>nums[i-1])
+                break;
+        }
+        if(i==0){
+            reverse(nums,0,nums.length-1);
+            return;
+        }
+        else{
+            int x=nums[i-1],min=i;
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[j]>x&&nums[j]<nums[min])
+                    min=j;
+            }
+            int temp=nums[i-1];
+            nums[i-1]=nums[min];
+            nums[min]=temp;
+            Arrays.sort(nums,i,nums.length);
+        }
+        
+    }
+    private void reverse(int arr[],
+                    int start, int end)
+    {
+        int temp;
+          
+        while (start < end)
+        {
+            temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
