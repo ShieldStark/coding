@@ -1,0 +1,35 @@
+class Solution {
+    public String validIPAddress(String queryIP) {
+        String[] v4 = queryIP.split("\\.");
+        String[] v6 = queryIP.split(":");
+        if(validV4(v4) && !queryIP.endsWith(".")) return "IPv4";
+        if(validV6(v6) && !queryIP.endsWith(":")) return "IPv6";
+        return "Neither";
+    }
+    public boolean validV4(String []s){
+        if(s.length!=4)return false;
+        for(int i=0;i<=3;i++){
+            if(s[i].length()>3)return false;
+            if(s[i].length()==0)return false;
+            if(s[i].charAt(0)=='0'&&s[i].length()>1)return false;
+            for(int j=0;j<s[i].length();j++){
+                if(!Character.isDigit(s[i].charAt(j)))return false;
+            }
+            if(Integer.valueOf(s[i])>255) return false;
+        }
+        return true;
+    }
+    public boolean validV6(String []s){
+        if(s.length!=8)return false;
+        for(int i=0;i<8;i++){
+            if(s[i].length()==0)return false;
+            if(s[i].length()>4)return false;
+            s[i] = s[i].toUpperCase();
+            for(int j=0;j<s[i].length();j++){
+                if(!Character.isDigit(s[i].charAt(j))&&(s[i].charAt(j)<'A'||s[i].charAt(j)>'F'))
+                    return false;
+            }
+        }
+        return true;
+    }
+}
