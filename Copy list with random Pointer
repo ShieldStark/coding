@@ -1,0 +1,46 @@
+/*Using Extra Space*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+       HashMap<Node,Node> hm=new HashMap<>();
+        for(Node i=head;i!=null;i=i.next)
+            hm.put(i,new Node(i.val));
+        for(Node i:hm.keySet()){
+            Node j=hm.get(i);
+            j.next=hm.get(i.next);
+            j.random=hm.get(i.random);
+        }
+        return hm.get(head);
+    }
+}
+
+
+/*Without using extra space */
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head==null)return null;
+        Node curr=head;
+        while(curr!=null){
+            Node copy=new Node(curr.val);
+            copy.next=curr.next;
+            curr.next=copy;
+            curr=copy.next;
+        }
+        curr=head;
+        while(curr!=null){
+            Node copy=curr.next;
+            copy.random=(curr.random!=null)?curr.random.next:null;
+            curr=copy.next;
+        }
+        Node temp=head.next;
+        curr=head;
+        while(curr!=null){
+            Node copy=curr.next;
+            curr.next=copy.next;
+            curr=curr.next;
+            copy.next=(curr!=null)?curr.next:null;
+        }
+        return temp;
+        
+    }
+}
