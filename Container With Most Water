@@ -1,0 +1,28 @@
+class Solve{
+    
+    long maxArea(int height[], int len){
+        // Code Here
+        long maxArea = 0;
+        int arrLen = height.length;
+        
+        int left = 0;
+        int right = arrLen - 1;
+        
+        while (left <= right) {
+            int lPos = height[left];
+            int rPos = height[right];
+            int distance = right - left;
+            
+            if (lPos < rPos) {
+                maxArea = Math.max(maxArea, lPos * distance);
+                left++;
+            } else {
+                maxArea = Math.max(maxArea, rPos * distance);
+                right--;
+            }
+        }
+        return maxArea;
+        
+    }
+    
+}
