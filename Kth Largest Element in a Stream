@@ -1,0 +1,19 @@
+class KthLargest {
+    int k;
+    PriorityQueue<Integer> pq=new PriorityQueue<>();
+    
+    public KthLargest(int k, int[] nums) {
+     this.k=k;
+        for(int val:nums){
+            pq.add(val);
+        }
+    }
+    
+    public int add(int val) {
+        pq.add(val);
+        while(pq.size()>k){
+            pq.remove();
+        }
+        return pq.peek();
+    }
+}
