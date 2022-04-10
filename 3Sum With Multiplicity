@@ -1,0 +1,16 @@
+class Solution {
+    public int threeSumMulti(int[] arr, int target) {
+        int ans=0;
+        for(int i=0;i<arr.length;i++){
+            int freq[]=new int[101];
+            for(int j=i+1;j<arr.length;j++){
+                int sum=arr[i]+arr[j];
+                if(target-sum>=0&&target-sum<101)
+                ans+=freq[target-sum];
+                ans=ans%1000000007;
+                freq[arr[j]]++;
+            }
+        }
+        return ans%1000000007;
+    }
+}
