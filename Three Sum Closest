@@ -1,0 +1,71 @@
+class Solution 
+{ 
+    static int threeSumClosest(int[] A, int B)  
+	{ 
+	    Arrays.sort(A);
+        int n=A.length,l,h,diff=Integer.MAX_VALUE;
+        ArrayList<Integer> ans=new ArrayList<>();
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            l=i+1;h=n-1;
+            while(l<h)
+            {   sum=A[i]+A[l]+A[h];
+                if(Math.abs(B-sum)<=diff){
+                    if(Math.abs(B-sum)<diff){
+                    diff=Math.abs(B-sum);
+                    ans.clear();
+                    ans.add(sum);
+                    }
+                    else ans.add(sum);
+                }
+                if(sum<B)l++;
+                else h--;
+            }
+        }
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<ans.size();i++)
+        max=Math.max(ans.get(i),max);
+        return max;
+        // code here
+        /*for(int i:array)
+        System.out.print(i+",");*/
+       /*Arrays.sort(array);
+        int closest=Integer.MAX_VALUE;
+        int ans=Integer.MIN_VALUE;
+        for(int i=0;i<array.length-1;i++){
+            int j=i+1;
+            int k=array.length-1;
+            
+            while(j<k){
+                int sum=array[i]+array[j]+array[k];
+                int dist=Math.abs(target-sum);
+                if(sum==86993)
+                    System.out.println("Gfg chutiya h "+dist);
+                if(sum==87578)
+                 System.out.println("Fuck you gfg "+dist);
+                if(closest>=dist){
+                    closest=dist;
+                    System.out.println(dist);
+                    ans=Math.max(sum,ans);
+                }
+                if(sum==target)
+                    {
+                        return sum;
+                    }
+                    else if(sum<target){
+                        
+                        j++;
+                    }
+                    else{
+                        
+                        
+                        k--;
+                    }
+                
+            }
+        }
+        //System.out.println(ans);
+        return ans;*/
+	} 
+} 
