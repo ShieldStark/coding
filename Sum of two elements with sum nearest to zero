@@ -1,0 +1,26 @@
+class Sol
+{
+    public static int closestToZero (int arr[], int n)
+    {
+        // your code here
+        Arrays.sort(arr);
+        int min=Integer.MAX_VALUE;
+        int l=0,r=n-1;
+        while(l<r){
+            int sum=arr[l]+arr[r];
+            /*if(sum==0)return 0;
+            else if(sum<0)*/
+            if(sum==0)return 0;
+            else if(sum<0){
+                l++;
+                
+            }else
+            r--;
+            if(Math.abs(sum)<=Math.abs(min)){
+                if(Math.abs(sum)==Math.abs(min)&&sum<0)continue;
+                min=sum;
+            }
+        }
+        return min;
+    }
+}
