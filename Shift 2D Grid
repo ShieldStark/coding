@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        for(int c=0;c<k;c++){
+        int start=grid[grid.length-1][grid[0].length-1];
+        for(int i=grid.length-1;i>0;i--){
+            for(int j=grid[0].length-1;j>0;j--){
+                grid[i][j]=grid[i][j-1];
+            }
+            if(i!=0){
+                grid[i][0]=grid[i-1][grid[0].length-1];
+            }
+            
+        }
+            for(int i=grid[0].length-1;i>0;i--){
+                grid[0][i]=grid[0][i-1];
+            }
+            grid[0][0]=start;
+        }
+       return (List)Arrays.asList(grid);
+    }
+}
