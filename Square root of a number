@@ -1,0 +1,19 @@
+class Solution
+{
+     long floorSqrt(long x)
+	 {
+		// Your code here
+		long l=1,e=x,ans=0;
+		while(l<=e){
+		    long mid=(l+e)/2;
+		    if(mid*mid==x)return mid;
+		    else if(mid*mid<x)
+		            {
+		                l=mid+1;
+		                ans=mid;
+		            }
+		            else e=mid-1;
+		}
+		return ans;
+	 }
+}
