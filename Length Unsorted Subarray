@@ -1,0 +1,29 @@
+class Solve {
+    int[] printUnsorted(int[] arr, int n) {
+        // code here
+        int l=Integer.MAX_VALUE;
+        int r=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(unbound(arr,i))
+                {
+                    l=Math.min(l,arr[i]);
+                    r=Math.max(r,arr[i]);
+                }
+        }
+        if(l==Integer.MAX_VALUE||r==Integer.MIN_VALUE)return new int[]{0,0};
+        //System.out.println(l);
+        int left=0;
+        while(l>=arr[left])
+            left++;
+        int right=n-1;
+        while(r<=arr[right])
+            right--;
+        return new int[]{left,right};
+    }
+    boolean unbound(int arr[],int i){
+        if(i==arr.length-1)return arr[i]<arr[arr.length-1];
+        if(i==0)return arr[i]>arr[1];
+        
+        return arr[i-1]>arr[i]||arr[i+1]<arr[i];
+    }
+}
