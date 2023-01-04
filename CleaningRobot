@@ -1,0 +1,71 @@
+
+public class CleaningRobot
+{
+    static int dir;
+    static int dirtX=new int[11];
+    static int dirtY=new int[11];
+    static int dist[][][][]=new int[62500][62500][62500][62500];
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		for(int i=1;i<=t;i++){
+		    int n=sc.nextInt();
+		    int m=sc.nextInt();
+		    int sx,sy;
+		    dir=0;
+		    int grid[][]=new int[n][m];
+		    for(int i=0;i<n;i++){
+		        for(int j=0;j<m;j++){
+		            grid[i][j]=sc.nextInt();
+		            if(grid[i][j]==3){
+		                sx=i;sy=j;
+		            }else if(grid[i][j]==1){
+		                dirtX[dir]=i;
+		                dirtY[dir]=j;
+		                dir++;
+		            }
+		        }
+		    }
+		    Arrays.fill(dist,62500);
+		    for(int i=0;i<dir;i++)
+		        dist[sx][sy][dirtX[i]][dirtY[i]]=solve(sx,sy,dirtX,dirtY);
+		    for(int i=0;i<dir;i++){
+		        for(int j=i;j<dir;j++){
+		            int xx=dirtX[i];
+		            int yy=dirtY[i];
+		            int gx=dirtX[j];
+		            int gy=dirtY[j];
+		            dist[xx][yy][gx][gy]=solve(xx,yy,gx,gy);
+		            dist[gx][gy][xx][yy]=dist[xx][yy][gx][gy];
+		        }
+		    }
+		}
+	}
+	public static int bfs(int sx,int sy,int tx,int ty,boolean vis[][],int[][] grid){
+	    Queue<Pair> q=new LinkedList<>();
+	    q.add(new Pair(sx,sy,0));
+	    vis[sx][sy]=true;
+	    while(!q.isEmpty()){
+	        Pair p=q.remove();
+	        int dx[]={0,0,1,-1};
+	        int dy[]={1,-1,0,1};
+	        if(p.x==tx&&p.y==ty)
+	        return p.c;
+	        for(int i=0;i<4;i++){
+	            int nx=sx+dx[i];
+	            int ny=sy+dy[i];
+	            if(isSafe(nx,ny,grid)&&grid[nx][ny]!=2){
+	                if(!vis[nx][ny]){
+	                    vis[nx][ny]=true;
+	                    q.add(new Pair(nx,ny,p.c+1));
+	                }
+	            }
+	        }
+	    }
+	    return Integer.MAX_VALUE;
+	}
+	public static boolean isSafe(int i,int j, int grid[][]){
+	    if(i<0||j<0||i>=grid.length||j>=grid[0].length)return false;
+	    return true;
+	}
+}
