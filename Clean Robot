@@ -1,0 +1,33 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class CleaningRobot {
+
+    public static int cleaning_robot(int[] init_pos, int[] room_dim, int[][] room) {
+        int n = room_dim[0];
+        int m = room_dim[1];
+        int x = init_pos[0];
+        int y = init_pos[1];
+        boolean[][] visited = new boolean[n][m];
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{x, y, 0});
+        visited[x][y] = true;
+        int[][] moves = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int min_moves = Integer.MAX_VALUE;
+        while (!q.isEmpty()) {
+            int[] curr = q.poll();
+            for (int[] move : moves) {
+                int dx = move[0];
+                int dy = move[1];
+                if (0 <= curr[0] + dx && curr[0] + dx < n && 0 <= curr[1] + dy && curr[1] + dy < m) {
+                    if (room[curr[0] + dx][curr[1] + dy] == 1 && !visited[curr[0] + dx][curr[1] + dy]) {
+                        min_moves = Math.min(min_moves, curr[2] + 1);
+                        visited[curr[0] + dx][curr[1] + dy] = true;
+                        q.add(new int[]{curr[0] + dx, curr[1] + dy, curr[2] + 1});
+                    }
+                }
+            }
+        }
+        return min_moves != Integer.MAX_VALUE ? min_moves : -1;
+    }
+}
