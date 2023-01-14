@@ -68,3 +68,36 @@ public class CleaningRobot {
         return min_moves != Integer.MAX_VALUE ? min_moves : -1;
     }
 }
+
+
+
+
+
+import java.util.PriorityQueue;
+
+public class CleaningRobot {
+
+    public static int cleaning_robot(int[] init_pos, int[] room_dim, int[][] room) {
+        int n = room_dim[0];
+        int m = room_dim[1];
+        boolean[][] visited = new boolean[n][m];
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        heap.offer(new int[]{init_pos[0], init_pos[1], 0});
+        visited[init_pos[0]][init_pos[1]] = true;
+        int[][] moves = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        while (!heap.isEmpty()) {
+            int[] curr = heap.poll();
+            for (int[] move : moves) {
+                int dx = move[0];
+                int dy = move[1];
+                if (0 <= curr[0] + dx && curr[0] + dx < n && 0 <= curr[1] + dy && curr[1] + dy < m) {
+                    if (room[curr[0] + dx][curr[1] + dy] == 1 && !visited[curr[0] + dx][curr[1] + dy]) {
+                        visited[curr[0] + dx][curr[1] + dy] = true;
+                        heap.offer(new int[]{curr[0] + dx, curr[1] + dy, curr[2] + 1});
+                    }
+                }
+            }
+        }
+        return heap.poll()[2];
+    }
+}
